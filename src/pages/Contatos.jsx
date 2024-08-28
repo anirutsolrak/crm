@@ -13,7 +13,7 @@ const Contatos = () => {
         const fetchContatos = async () => {
             try {
                 const response = await axios.get(
-                    'https://api-alura-flix-9ie6ii7ii-anirutsolraks-projects.vercel.app/contatos'
+                    'https://api-alura-flix-ten.vercel.app/contatos'
                 );
                 setContatos(response.data);
             } catch (error) {
