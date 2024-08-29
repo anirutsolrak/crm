@@ -6,6 +6,7 @@
   min-height: 100vh;
   background: linear-gradient(to bottom, #f0f0f0, #ccc);
   padding: 20px;
+  width: 100vw;
 }
 
 .new-contato-button, .new-negocio-button {
