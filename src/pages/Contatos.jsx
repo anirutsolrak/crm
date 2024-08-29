@@ -4,10 +4,15 @@ import { Link } from 'react-router-dom';
 import { List, ListItem, ListItemText, Typography, Button } from '@mui/material';
 import Contato from '../components/Contato';
 import Formulario from '../components/Formulario';
-import axios from 'axios'; // Importe o Axios
+import axios from 'axios';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const Contatos = () => {
     const [contatos, setContatos] = useState([]);
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         const fetchContatos = async () => {
@@ -26,7 +31,7 @@ const Contatos = () => {
     const handleDelete = async (id) => {
         try {
             await axios.delete(
-                `https://api-alura-flix-9ie6ii7ii-anirutsolraks-projects.vercel.app/contatos/${id}`
+                `https://api-alura-flix-ten.vercel.app/contatos/${id}`
             );
             setContatos(contatos.filter((contato) => contato.id !== id));
         } catch (error) {
@@ -37,7 +42,7 @@ const Contatos = () => {
     const handleEdit = async (contato) => {
         try {
             await axios.put(
-                `https://api-alura-flix-9ie6ii7ii-anirutsolraks-projects.vercel.app/contatos/${contato.id}`,
+                `https://api-alura-flix-ten.vercel.app/contatos/${contato.id}`,
                 contato
             );
             const updatedContatos = contatos.map((c) =>
@@ -52,7 +57,7 @@ const Contatos = () => {
     const handleAddContato = async (newContato) => {
         try {
             const response = await axios.post(
-                'https://api-alura-flix-9ie6ii7ii-anirutsolraks-projects.vercel.app/contatos',
+                'https://api-alura-flix-ten.vercel.app/contatos',
                 newContato
             );
             setContatos([...contatos, response.data]);
@@ -78,8 +83,14 @@ const Contatos = () => {
                     email: '',
                     contatoId: null,
                 }}
-                contatos={contatos} // Passando a prop contatos
+                contatos={contatos}
+                open={open}
+                handleClose={handleClose}
             />
+            <Button variant="contained" color="primary" className="new-contato-button" onClick={handleOpen}>
+                <AddCircleIcon />
+                Novo Contato
+            </Button>
             <List>
                 {contatos.map((contato) => (
                     <Contato
